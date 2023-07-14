@@ -1,4 +1,3 @@
-from recursion import *
 from two_sum import *
 from other_problems import *
 from majority_element import *
@@ -15,9 +14,29 @@ def sliding_window(elements, window_size):
     for i in range(len(elements)):
         print(elements[i:i+window_size])  
 
-
+class SolutionHIndex:
+    def hIndexSort(self, citations: List[int]) -> int:
+        citations.sort()
+        l = len(citations)
+        for i in range(l):
+            if(citations[i] >= l - i):
+                 return l - i
+        return 0
   
+    def hIndex(self, citations: List[int]) -> int:
+        n = len(citations)
+        accumulate = 0
+        count = [0] * (n + 1)
 
+        for citation in citations:
+            count[min(citation, n)] += 1
+
+        # To find the largeset h-index, loop from back to front
+        # I is the candidate h-index
+        for i, c in reversed(list(enumerate(count))):
+            accumulate += c
+            if accumulate >= i:
+                return i
      
 
 
@@ -39,4 +58,6 @@ if __name__ == "__main__":
     #print(d.breed)
     #print(minSubArrayLen([2,3,1,2,4,3], 7))
     #print(phoneNumbers("2345"))
-    print(twoSumHashTable([1,2,3,4,55,7], 8))
+    #print(twoSumHashTable([1,2,3,4,55,7], 8))
+    sol = SolutionHIndex()
+    print(sol.hIndex([1,3,1]))

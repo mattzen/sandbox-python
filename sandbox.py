@@ -39,4 +39,4 @@ if __name__ == "__main__":
     #print(d.breed)
     #print(minSubArrayLen([2,3,1,2,4,3], 7))
     #print(phoneNumbers("2345"))
-    print(twoSum2([1,2,3,4,55,7], 8))
+    print(twoSumHashTable([1,2,3,4,55,7], 8))

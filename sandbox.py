@@ -1,6 +1,5 @@
 from recursion import *
 from two_sum import *
-from dog import *
 from other_problems import *
 from majority_element import *
 from typing import List

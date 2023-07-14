@@ -1,4 +1,5 @@
 from collections import deque
+from typing import *
 
 class TreeNode(object):
     def __init__(self, val=0, left=None, right=None):
@@ -115,6 +116,25 @@ class Solution(object):
         self.printPreorder(root.left)
         self.printPreorder(root.right)
 
+class SolutionBuildTree:
+    def sortedArrayToBST(self, arr: List[int]) -> Optional[TreeNode]:
+        if not arr:
+            return None
+ 
+        # find middle index
+        mid = (len(arr)) // 2
+    
+        # make the middle element the root
+        root = TreeNode(arr[mid])
+    
+        # left subtree of root has all
+        # values <arr[mid]
+        root.left = self.sortedArrayToBST(arr[:mid])
+    
+        # right subtree of root has all
+        # values >arr[mid]
+        root.right = self.sortedArrayToBST(arr[mid+1:])
+        return root
 
 # Test cases
 sol = Solution()
@@ -130,8 +150,8 @@ tree.left.left.right = TreeNode(7)
 
 sol.printPreorder(tree)
 
-print(sol.averageOfLevels(tree))
-print(sol.printLevels(tree))
+print(sol.averageOfLevelsBFS(tree))
+print(sol.printLevelsBFS(tree))
 
 
 assert sol.max_depth_recursive(tree) == 3

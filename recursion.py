@@ -52,7 +52,7 @@ class SolutionStairs:
             if(index > n):
                 return 0
             for i in range (n):
-                lookup[index] = recursiveStairs(n, index + 1) + recursiveStairs(n, index + 2)
+                lookup[index] = recursiveStairs(n, index + 1) + recursiveStairs(n, index + 5)
                 return lookup[index]
         return recursiveStairs(n, 0)
     
@@ -80,4 +80,4 @@ class SolutionStairs:
         
 sol = SolutionStairs()
 print(sol.climbStairsDP(40))
-print(sol.climbStairsIT(40))
+#print(sol.climbStairsIT(40))

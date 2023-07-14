@@ -94,15 +94,41 @@ class Solution(object):
             current_level = []
         return result
         
+    def printInorder(self, root : TreeNode):
+        if(not root):
+            return
+        self.printInorder(root.left)
+        print(root.val)
+        self.printInorder(root.right)
+        
+    def printPostorder(self, root : TreeNode):
+        if(not root):
+            return
+        self.printPostorder(root.left)
+        self.printPostorder(root.right)
+        print(root.val)
+        
+    def printPreorder(self, root : TreeNode):
+        if(not root):
+            return
+        print(root.val)
+        self.printPreorder(root.left)
+        self.printPreorder(root.right)
+
 
 # Test cases
 sol = Solution()
 
-tree = TreeNode(3)
-tree.left = TreeNode(9)
-tree.right = TreeNode(20)
-tree.right.left = TreeNode(15)
-tree.right.right = TreeNode(7)
+tree = TreeNode(10)
+tree.left = TreeNode(8)
+tree.right = TreeNode(15)
+tree.right.right = TreeNode(20)
+tree.left.right = TreeNode(9)
+tree.left.left = TreeNode(6)
+tree.left.left.left = TreeNode(5)
+tree.left.left.right = TreeNode(7)
+
+sol.printPreorder(tree)
 
 print(sol.averageOfLevels(tree))
 print(sol.printLevels(tree))

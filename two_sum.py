@@ -8,7 +8,7 @@ def twoSum(nums: List[int], target: int) -> List[int]:
              if(current_sum + nums[j] == target):
                  return i, j
              
-def twoSum2(nums: List[int], target: int) -> List[int]:
+def twoSumHashTable(nums: List[int], target: int) -> List[int]:
     table = dict() 
     for i in range(0, len(nums)):
         index = target - nums[i]

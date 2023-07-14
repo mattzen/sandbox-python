@@ -1,7 +1,7 @@
 from typing import List
 import re
 
-def maxProfit(self, prices: List[int]) -> int:
+def maxProfit(prices: List[int]) -> int:
     current_stock = prices[0]
     profit = 0
     for i in range(1, len(prices)):
@@ -11,7 +11,7 @@ def maxProfit(self, prices: List[int]) -> int:
             profit = prices[i] - current_stock
     return profit
 
-def removeElement(self, nums: List[int], val: int) -> int:
+def removeElement(nums: List[int], val: int) -> int:
     # Counter for keeping track of elements other than val
     count = 0
     # Loop through all the elements of the array
@@ -22,7 +22,7 @@ def removeElement(self, nums: List[int], val: int) -> int:
             count += 1
     return count
 
-def removeElement2(self, nums: List[int], val: int) -> int:
+def removeElement2(nums: List[int], val: int) -> int:
         while val in nums:
             nums.remove(val)  
 

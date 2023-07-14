@@ -56,7 +56,7 @@ class Solution(object):
                 stack.append((node.right, depth + 1))
         return level
     
-    def averageOfLevels(self, root : TreeNode):
+    def averageOfLevelsBFS(self, root : TreeNode):
         if(not root):
             return []
         queue = deque([root])
@@ -76,7 +76,7 @@ class Solution(object):
             current_val = 0
         return result
     
-    def printLevels(self, root : TreeNode):
+    def printLevelsBFS(self, root : TreeNode):
         if(not root):
             return []
         queue = deque([root])

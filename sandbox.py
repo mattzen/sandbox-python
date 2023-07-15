@@ -60,4 +60,4 @@ if __name__ == "__main__":
     #print(phoneNumbers("2345"))
     #print(twoSumHashTable([1,2,3,4,55,7], 8))
     sol = SolutionHIndex()
-    print(sol.hIndex([1,3,1]))
+    print(sol.hIndex([1,10,1]))

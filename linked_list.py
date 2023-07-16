@@ -7,7 +7,12 @@ class ListNode:
         self.next = None
 
 class SolutionLinkedList:
-    def hasCycle(self, head: Optional[ListNode]) -> bool:
+    def printLinkedList(self, head: Optional[ListNode]):
+        while(head):
+            print(head.val)
+            head = head.next
+            
+    def hasCycleSet(self, head: Optional[ListNode]) -> bool:
         visited = set()
         while(head):
             if(head in visited):
@@ -26,12 +31,32 @@ class SolutionLinkedList:
                 return 1
         return 0
     
+    def detectLoopTwoPointers(self, head: Optional[ListNode]) -> bool:
+    # Create a temporary node
+        temp = ""
+        while (head != None):
     
-    def printLinkedList(self, head: Optional[ListNode]):
-        while(head):
-            print(head.val)
-            head = head.next
+            # This condition is for the case
+            # when there is no loop
+            if (head.next == None):
+                return False
     
+            # Check if next is already
+            # pointing to temp
+            if (head.next == temp):
+                return True
+    
+            # Store the pointer to the next node
+            # in order to get to it in the next step
+            next = head.next
+    
+            # Make next point to temp
+            head.next = temp
+    
+            # Get to the next node in the list
+            head = next
+    
+        return False
     
 #[3,2,0,-4]
 n = ListNode(3)
@@ -43,7 +68,7 @@ n.next.next.next.next = n.next
 n1 = ListNode(1)
 
 sol = SolutionLinkedList()
-if(sol.hasCyclePointers(n)):
+if(sol.detectLoopTwoPointers(n)):
     print("Loop Found")
 else:
     print("No Loop")

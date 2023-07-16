@@ -37,7 +37,8 @@ class SolutionHIndex:
             accumulate += c
             if accumulate >= i:
                 return i
-     
+
+
 
 
 if __name__ == "__main__":

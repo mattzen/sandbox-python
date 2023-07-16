@@ -59,6 +59,23 @@ class SolutionNumOfIslands:
 
         return ans
     
+    
+    def numIslandsBFSMy(self, grid: List[List[str]]) -> int: 
+        m = len(grid)
+        n = len(grid[0])
+        queue = collections.dequeue(grid[0][0])
+        
+        while(queue):
+            for i in range(m-1):
+                for j in range(n-1):
+                    curr_el = queue.popleft()
+                    if(grid[i, j]== 1):
+                        grid[i, j] = 2
+                    queue.append(grid[m + 1, n])
+                    queue.append(grid[m, n + 1])
+
+
+
 
 grid = [
   ["1","1","0","0","0"],
@@ -68,5 +85,5 @@ grid = [
 ]
 
 sol = SolutionNumOfIslands()
-print(sol.numIslandsDFS(grid))
+print(sol.numIslandsBFSMy(grid))
 #print(sol.numIslandsBFS(grid))

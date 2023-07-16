@@ -16,9 +16,15 @@ class SolutionLinkedList:
             head = head.next
         return False
     
-    def hasCyclePointers(self, head: Optional[ListNode]) -> bool:
-
-        return False
+    def hasCycleFloyd(self, head: Optional[ListNode]) -> bool:
+        slow_p = head
+        fast_p = head
+        while(slow_p and fast_p and fast_p.next):
+            slow_p = slow_p.next
+            fast_p = fast_p.next.next
+            if slow_p == fast_p:
+                return 1
+        return 0
     
     
     def printLinkedList(self, head: Optional[ListNode]):
@@ -34,9 +40,13 @@ n.next.next = ListNode(0)
 n.next.next.next = ListNode(-4)
 n.next.next.next.next = n.next
   
-    
+n1 = ListNode(1)
+
 sol = SolutionLinkedList()
-sol.hasCycle(n)
+if(sol.hasCyclePointers(n)):
+    print("Loop Found")
+else:
+    print("No Loop")
     
 
             

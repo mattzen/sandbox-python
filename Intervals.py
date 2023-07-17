@@ -17,7 +17,8 @@ class SolutionIntervals:
             i += 1
         return ans
     
-    
+        
+        
     
 
 

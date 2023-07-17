@@ -57,7 +57,33 @@ class SolutionLinkedList:
             head = next
     
         return False
-    
+   
+class SolutionHIndex:
+    def hIndexSort(self, citations: List[int]) -> int:
+        citations.sort()
+        l = len(citations)
+        for i in range(l):
+            if(citations[i] >= l - i):
+                 return l - i
+        return 0
+  
+    def hIndex(self, citations: List[int]) -> int: 
+        n = len(citations)
+        accumulate = 0
+        count = [0] * (n + 1)
+
+        for citation in citations:
+            count[min(citation, n)] += 1
+
+        # To find the largeset h-index, loop from back to front
+        # I is the candidate h-index
+        for i, c in reversed(list(enumerate(count))):
+            accumulate += c
+            if accumulate >= i:
+                return i
+
+          
+        
 #[3,2,0,-4]
 n = ListNode(3)
 n.next = ListNode(2)

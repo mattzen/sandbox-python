@@ -4,6 +4,7 @@ from other_problems import *
 from majority_element import *
 from typing import List
 import re
+import functools
 
 def swapPositions(list, pos1, pos2):
     list[pos1], list[pos2] = list[pos2], list[pos1]
@@ -17,10 +18,14 @@ def sliding_window(elements, window_size):
 
 
 
+def ReturnNonDuplicate(nums):
+    return functools.reduce(lambda x,y: x^y, nums)
+
 
 
 
 if __name__ == "__main__":
+    print(ReturnNonDuplicate([1,3,2,2,1]))
     #print(SumOfDigits(123456767))
     #print(SumofDigitsIterative(123456767))
     #print(Solution.majorityElement3([1,3,2,2,2,2]))
@@ -39,5 +44,5 @@ if __name__ == "__main__":
     #print(minSubArrayLen([2,3,1,2,4,3], 7))
     #print(phoneNumbers("2345"))
     #print(twoSumHashTable([1,2,3,4,55,7], 8))
-    sol = SolutionHIndex()
-    print(sol.hIndex([1,10,1]))
+    #sol = SolutionHIndex()
+    #print(sol.hIndex([1,10,1]))

@@ -116,17 +116,17 @@ def permute(nums: List[int]) -> List[List[int]]:
     return result            
         
 
-def minPathSum(grid: List[List[int]]) -> int:
+def minPathSumBottomUp(grid: List[List[int]]) -> int:
     
     row_len = len(grid[0])
     col_len = len(grid)
         
     def dfs(grid, i, j):
         #last element bottom left corner
-        if(i == row_len - 1 and j == col_len -1):
+        if(i == col_len - 1 and j == row_len -1):
             return grid[i][j]  
-        elif(i == row_len - 1 or j == col_len - 1):
-            return sys.maxsize      
+        elif(i >= col_len or j >= row_len):
+            return sys.maxsize
         else:
             return grid[i][j] + min(dfs(grid, i + 1, j),
                                     dfs(grid, i, j + 1))
@@ -134,21 +134,25 @@ def minPathSum(grid: List[List[int]]) -> int:
                 
     return dfs(grid, 0, 0)
     
-class SolutionMinCostPath:
-    def minPathSum(self, grid: List[List[int]]) -> int:
-        def minCost(cost, m, n):
-            if (n < 0 or m < 0):
-                return sys.maxsize
-            elif (m == 0 and n == 0):
-                return cost[m][n]
-            else:
-                return cost[m][n] + min(minCost(cost, m-1, n),
-                                        minCost(cost, m, n-1))
-        return minCost(grid, len(grid)-1, len(grid[0])-1)
+
+def minPathSumTopDown(grid: List[List[int]]) -> int:
+    def minCost(cost, m, n):
+        if (n < 0 or m < 0):
+            return sys.maxsize
+        elif (m == 0 and n == 0):
+            return cost[m][n]
+        else:
+            return cost[m][n] + min(minCost(cost, m-1, n),
+                                    minCost(cost, m, n-1))
+    return minCost(grid, len(grid)-1, len(grid[0])-1)
         
 
-#print(minPathSum([[1, 3, 1],[1, 5, 1],[4, 2, 1]]))   
-print(minPathSum([[1, 2, 3],[4, 5, 6]]))     
+
+print(minPathSumBottomUp([[1, 3, 1],[1, 5, 1],[4, 2, 1]])) 
+print(minPathSumBottomUp([[1, 2, 3],[4, 5, 6]])) 
+
+print(minPathSumTopDown([[1, 2, 3],[4, 5, 6]]))     
+
 #print(minCost([[1, 3, 1],[1, 5, 1],[4, 2, 1]], 2, 2))    
     
 #sol = SolutionStairs()

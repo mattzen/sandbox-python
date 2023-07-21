@@ -17,7 +17,6 @@ def sliding_window(elements, window_size):
         print(elements[i:i+window_size])  
 
 
-
 def ReturnNonDuplicate(nums):
     return functools.reduce(lambda x,y: x^y, nums)
 

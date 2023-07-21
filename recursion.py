@@ -42,7 +42,24 @@ def phoneNumbers(digits):
   
   
   
-       
+  
+class SolutionCombinations:
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        #[1,n] 
+        #[1..len(k)]    
+        result = []
+        
+        def backtrack(current_set, ctr):
+            if(len(current_set) == k):
+                result.append(current_set.copy())
+                return
+            for i in range(ctr,n+1):
+                current_set.append(i)
+                backtrack(current_set, i+1)
+                current_set.pop()
+            
+        backtrack([], 1)   
+        return result
        
 class SolutionStairs:         
     def climbStairsDP(self, n): 
@@ -81,6 +98,9 @@ class SolutionStairs:
         return prev1
         
         
-sol = SolutionStairs()
-print(sol.climbStairsDP(40))
+#sol = SolutionStairs()
+#print(sol.climbStairsDP(40))
 #print(sol.climbStairsIT(40))
+
+sol = SolutionCombinations()
+print(sol.combine(3,2))

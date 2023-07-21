@@ -84,13 +84,3 @@ def reverseWords(s: str) -> str:
         final_sentence += " " + result[last_index]
     return final_sentence
 
-def minSubArrayLen(nums, s):
-        head, rear, current_total, min_length = 0 , 0 , 0, len(nums) + 1
-        while rear < len(nums):
-            current_total += nums[rear]
-            rear += 1
-            while current_total >= s:
-                min_length = min(min_length, rear - head)
-                current_total -= nums[head]
-                head += 1
-        return min_length if min_length != len(nums) + 1 else 0

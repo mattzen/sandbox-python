@@ -40,9 +40,6 @@ def phoneNumbers(digits):
         backtrack(0, "")
     return result
   
-  
-  
-  
 class SolutionCombinations:
     def combine(self, n: int, k: int) -> List[List[int]]:
         #[1,n] 
@@ -97,10 +94,34 @@ class SolutionStairs:
 
         return prev1
         
+
+
+   
+
+        
+def permute(nums: List[int]) -> List[List[int]]:
+    result = []
+    
+    def swap(nums, i, j):
+        nums[i], nums[j] = nums[j], nums[i]
+    
+    def permute_helper(nums, index):
+        if(index == len(nums)):
+            result.append(nums.copy())
+            return
+        for i in range(index, len(nums)):
+                swap(nums, i, index)
+                permute_helper(nums, index + 1)
+                swap(nums, i, index)
+    
+    
+    permute_helper(nums, 0)
+    
+    return result            
+        
         
 #sol = SolutionStairs()
 #print(sol.climbStairsDP(40))
 #print(sol.climbStairsIT(40))
 
-sol = SolutionCombinations()
-print(sol.combine(3,2))
+print(permute([1,2,3]))

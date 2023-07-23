@@ -134,14 +134,30 @@ def minPathSumBottomUp(grid: List[List[int]]) -> int:
                 
     return dfs(grid, 0, 0)
     
-    
+def minPathSum(grid: List[List[int]]) -> int:
+    m = len(grid)
+    n = len(grid[0])
+
+    for i in range(m):
+      for j in range(n):
+        if i > 0 and j > 0:
+          grid[i][j] += min(grid[i - 1][j], grid[i][j - 1])
+        elif i > 0:
+          grid[i][0] += grid[i - 1][0]
+        elif j > 0:
+          grid[0][j] += grid[0][j - 1]
+
+    return grid[m - 1][n - 1]   
     
 
 def minPathSumBottomUpDP(grid: List[List[int]]) -> int:
     
     row_len = len(grid[0])
     col_len = len(grid)
-        
+    dp_cost = [] * row_len
+    
+    print(dp_cost)
+    
     def dfs(grid, i, j):
         #last element bottom left corner
         if(i == col_len - 1 and j == row_len -1):
@@ -149,8 +165,12 @@ def minPathSumBottomUpDP(grid: List[List[int]]) -> int:
         elif(i >= col_len or j >= row_len):
             return sys.maxsize
         else:
-            return grid[i][j] + min(dfs(grid, i + 1, j),
-                                    dfs(grid, i, j + 1))
+            if(not dp_cost or not dp_cost[i][j]):
+                dp_cost.appendgrid[i][j] + min(dfs(grid, i + 1, j),
+                                                dfs(grid, i, j + 1))
+                return
+            else:
+                return dp_cost[i][j]
             
                 
     return dfs(grid, 0, 0)
@@ -167,7 +187,7 @@ def minPathSumTopDown(grid: List[List[int]]) -> int:
     return minCost(grid, len(grid)-1, len(grid[0])-1)
         
 
-print(minPathSumBottomUpDP([[7,1,3,5,8,9,9,2,1,9,0,8,3,1,6,6,9,5],
+print(minPathSum([[7,1,3,5,8,9,9,2,1,9,0,8,3,1,6,6,9,5],
                             [9,5,9,4,0,4,8,8,9,5,7,3,6,6,6,9,1,6],
                             [8,2,9,1,3,1,9,7,2,5,3,1,2,4,8,2,8,8],
                             [6,7,9,8,4,8,3,0,4,0,9,6,6,0,0,5,1,4],
@@ -180,12 +200,12 @@ print(minPathSumBottomUpDP([[7,1,3,5,8,9,9,2,1,9,0,8,3,1,6,6,9,5],
                             [2,3,2,4,8,5,1,7,2,9,5,2,4,2,9,2,8,7],
                             [0,1,6,1,1,0,0,6,5,4,3,4,3,7,9,6,1,9]])) 
 
-print(minPathSumBottomUp([[1, 3, 1],[1, 5, 1],[4, 2, 1]])) 
-print(minPathSumBottomUp([[1, 2, 3],[4, 5, 6]])) 
+#print(minPathSumBottomUp([[1, 3, 1],[1, 5, 1],[4, 2, 1]])) 
+#print(minPathSumBottomUp([[1, 2, 3],[4, 5, 6]])) 
 
-print(minPathSumTopDown([[1, 2, 3],[4, 5, 6]]))     
+#print(minPathSumTopDown([[1, 2, 3],[4, 5, 6]]))     
 
-#print(minCost([[1, 3, 1],[1, 5, 1],[4, 2, 1]], 2, 2))    
+print(minPathSum([[1, 3, 1],[1, 5, 1],[4, 2, 1]] ))    
     
 #sol = SolutionStairs()
 #print(sol.climbStairsDP(40))

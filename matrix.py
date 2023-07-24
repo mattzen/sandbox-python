@@ -11,8 +11,9 @@ class SolutionMatrix:
     def rotate_90(self, matrix: List[List[int]]) -> None:
         ctr = 0
         dim = len(matrix) - 1
-        for level in range(math.floor(len(matrix)/2)):
-            for index in range(dim - level):
+        #for level in range(math.floor(len(matrix)/2)):
+        while(ctr < dim):
+            for index in range(dim - ctr):
                 self.swap(matrix, ctr, ctr + index, dim - index, ctr)
                 self.swap(matrix, dim - index, ctr, dim, dim - index)  
                 self.swap(matrix, dim, dim - index, ctr + index, dim) 

@@ -185,9 +185,42 @@ def minPathSumTopDown(grid: List[List[int]]) -> int:
             return cost[m][n] + min(minCost(cost, m-1, n),
                                     minCost(cost, m, n-1))
     return minCost(grid, len(grid)-1, len(grid[0])-1)
-        
+  
+  
+  
+def uniquePaths(m: int, n: int) -> int:  
+    def recu(m, n):
+        if(m == 0 and n == 0):
+            return 1
+        if(m < 0 or n < 0):
+            return 0
+        return (recu(m - 1, n) + recu(m, n - 1))
 
-print(minPathSum([[7,1,3,5,8,9,9,2,1,9,0,8,3,1,6,6,9,5],
+    return recu(m-1, n-1)
+      
+        
+def uniquePathsDP(m: int, n: int) -> int:  
+    dp = [[0] * (m) for i in range((n))]
+    def recu(m, n):
+        if(m == 0 and n == 0):
+            return 1
+        if(m < 0 or n < 0):
+            return 0
+        if(dp[n][m] > 0):
+            return dp[n][m]
+        dp[n][m] = (recu(m - 1, n) + recu(m, n - 1))
+        return dp[n][m]
+
+    return recu(m-1, n-1,)
+
+
+
+print(uniquePaths(3,7))
+
+
+
+
+""" print(minPathSum([[7,1,3,5,8,9,9,2,1,9,0,8,3,1,6,6,9,5],
                             [9,5,9,4,0,4,8,8,9,5,7,3,6,6,6,9,1,6],
                             [8,2,9,1,3,1,9,7,2,5,3,1,2,4,8,2,8,8],
                             [6,7,9,8,4,8,3,0,4,0,9,6,6,0,0,5,1,4],
@@ -199,13 +232,13 @@ print(minPathSum([[7,1,3,5,8,9,9,2,1,9,0,8,3,1,6,6,9,5],
                             [5,7,8,3,8,8,3,9,9,8,1,9,2,5,4,7,7,7],
                             [2,3,2,4,8,5,1,7,2,9,5,2,4,2,9,2,8,7],
                             [0,1,6,1,1,0,0,6,5,4,3,4,3,7,9,6,1,9]])) 
-
+ """
 #print(minPathSumBottomUp([[1, 3, 1],[1, 5, 1],[4, 2, 1]])) 
 #print(minPathSumBottomUp([[1, 2, 3],[4, 5, 6]])) 
 
 #print(minPathSumTopDown([[1, 2, 3],[4, 5, 6]]))     
 
-print(minPathSum([[1, 3, 1],[1, 5, 1],[4, 2, 1]] ))    
+#print(minPathSum([[1, 3, 1],[1, 5, 1],[4, 2, 1]] ))    
     
 #sol = SolutionStairs()
 #print(sol.climbStairsDP(40))

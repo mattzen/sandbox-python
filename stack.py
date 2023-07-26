@@ -49,9 +49,6 @@ class SolutionRemoveStars:
             
         return "".join(stack)
 
-    
-6
-
 class SolutionAsteroids:
     def asteroidCollision(self, asteroids: List[int]) -> List[int]:
         stack = collections.deque()

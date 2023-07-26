@@ -264,14 +264,53 @@ class SolutionPhoneNums:
             backtrack(0, "")
         return result                 
                 
-                
-                
-                
+class SolutionLongestCommonSubsequence:
+    def longestCommonSubsequence1(self, text1: str, text2: str) -> int:            
+        result = 0
+        current_longest_subsequence = []
+        def backtrack(index, t1, t2):
+            return 0
+
+
+    #def longestCommonSubsequence2(self, text1: str, text2: str) -> int:  
+        
+        
+
+
+    
+    def longestCommonSubsequence3(self, text1: str, text2: str) -> int:  
+        
+        overall_max = 0
+        
+        def backtrack(index1, index2, current_longest):
+            if(index1 == len(text1) and index2 == len(text2)):
+                overall_max = max(overall_max, current_longest)
+                return
+            for i in range(index1, len(text1)):
+                for j in range(index2, len(text2)):
+                    backtrack(index1 + i, index2 + j, current_longest)
+                    
+        backtrack(0,0, 0)
+        return overall_max
+        
+        
+
+            
+            
+print(combinationSum([2,3,6,7], 7)) 
+""" 
+sol = SolutionLongestCommonSubsequence()
+print(sol.longestCommonSubsequence2("adbec", "werbipewwa"))
+ """
+
+
+
+
+
+
 sol = SolutionPhoneNums()
 print(sol.phoneNumbers("23"))
-        
-    
-print(combinationSum([2,3,6,7], 7))
+
 
 
 #print(uniquePaths(3,7))

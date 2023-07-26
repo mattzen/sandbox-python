@@ -17,29 +17,7 @@ def SumofDigitsIterative(num : int) -> int:
 
  #ex 23   
 
-def phoneNumbers(digits):
-    d = {
-            "2" : "abc",
-            "3" : "def",
-            "4" : "ghi",
-            "5" : "jkl",
-            "6" : "mno",
-            "7" : "pgrs",
-            "8" : "tuv",
-            "9" : "wxyz"
-        }
-    
-    result = []
-    def backtrack(index, curStr):
-        if(len(curStr) == len(digits)):
-            result.append(curStr)
-            return
-        for i in d[digits[index]]:
-            backtrack(index + 1, curStr + i)
-            
-    if(digits):
-        backtrack(0, "")
-    return result
+
   
 class SolutionCombinations:
     def combine(self, n: int, k: int) -> List[List[int]]:
@@ -215,10 +193,88 @@ def uniquePathsDP(m: int, n: int) -> int:
 
 
 
-print(uniquePaths(3,7))
+def combinationSum(candidates: List[int], target: int) -> List[List[int]]:
+    result = []
+    candidates_len = len(candidates)
+    def combinationSumHelper(comb, start_index):
+        if(sum(comb) == target):
+            result.append(comb.copy())
+            return
+        if(sum(comb) > target):
+            return
+        else:
+            for index in range(start_index, candidates_len):
+                comb.append(candidates[index])
+                combinationSumHelper(comb, index)
+                comb.pop()
+          
+    combinationSumHelper([], 0)
+                
+    return result
 
 
+class SolutionPhoneNums:
+    def letterCombinationsArray(self, digits: str):
+        d = {
+            "2" : "abc",
+            "3" : "def",
+            "4" : "ghi",
+            "5" : "jkl",
+            "6" : "mno",
+            "7" : "pgrs",
+            "8" : "tuv",
+            "9" : "wxyz"
+        }
+        
+        result = []
+        
+        def backtrack(comb, index):
+            if(len(comb) == len(digits)):
+                result.append(comb.copy())
+                return          
+            for i in d[digits[index]]: 
+                comb.append(i)     
+                backtrack(comb, index + 1)
+                comb.pop()             
+                    
+        backtrack([], 0)
+        return result
+    
+    def phoneNumbers(digits):
+        d = {
+                "2" : "abc",
+                "3" : "def",
+                "4" : "ghi",
+                "5" : "jkl",
+                "6" : "mno",
+                "7" : "pgrs",
+                "8" : "tuv",
+                "9" : "wxyz"
+            }
+        
+        result = []
+        def backtrack(index, curStr):
+            if(len(curStr) == len(digits)):
+                result.append(curStr)
+                return
+            for i in d[digits[index]]:
+                backtrack(index + 1, curStr + i)
+                
+        if(digits):
+            backtrack(0, "")
+        return result                 
+                
+                
+                
+                
+sol = SolutionPhoneNums()
+print(sol.letterCombinations("23"))
+        
+    
+print(combinationSum([2,3,6,7], 7))
 
+
+#print(uniquePaths(3,7))
 
 """ print(minPathSum([[7,1,3,5,8,9,9,2,1,9,0,8,3,1,6,6,9,5],
                             [9,5,9,4,0,4,8,8,9,5,7,3,6,6,6,9,1,6],

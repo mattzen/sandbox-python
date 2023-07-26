@@ -240,7 +240,7 @@ class SolutionPhoneNums:
         backtrack([], 0)
         return result
     
-    def phoneNumbers(digits):
+    def phoneNumbers(self, digits):
         d = {
                 "2" : "abc",
                 "3" : "def",
@@ -268,7 +268,7 @@ class SolutionPhoneNums:
                 
                 
 sol = SolutionPhoneNums()
-print(sol.letterCombinations("23"))
+print(sol.phoneNumbers("23"))
         
     
 print(combinationSum([2,3,6,7], 7))

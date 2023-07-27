@@ -2,21 +2,6 @@ import collections
 import math
 from typing import List
 
-class SolutionStack:
-    def isValidParenthesis(self, s: str) -> bool:
-        closing = [")","]","}"]
-        opening = ["(","[","{"]
-        if(not s):
-            return True
-        if(len(s) == 1):
-            return False
-        stac = collections.deque(s[0])
-        i = 1
-        for i in range(len(s)):
-            while(stac):
-                if(s[i] == ")" or s[i] == "]" or s[i] == ""):
-                    return False
-        return True
 class SolutionRemoveStars:
     def removeStars1(self, s: str) -> str:
         result = ""
@@ -51,24 +36,7 @@ class SolutionRemoveStars:
 
 class SolutionAsteroids:
     def asteroidCollision(self, asteroids: List[int]) -> List[int]:
-        stack = collections.deque()
-        for asteroid in asteroids:  
-            if(stack):
-                if(stack and asteroid < 0 and stack[-1] > 0):
-                    while(stack and asteroid < 0 and stack[-1] > 0):
-                        if(stack and abs(asteroid) > abs(stack[-1])):
-                            stack.pop
-                            stack.append(asteroid)
-                        elif(stack and abs(asteroid) == abs(stack[-1])):
-                            stack.pop()
-                        else:
-                            break 
-                else:
-                   stack.append(asteroid)      
-            else:
-                stack.append(asteroid)    
-
-        return list(collections.deque(stack))
+        return []
             
         
         

@@ -2,23 +2,22 @@ import collections
 from typing import List
 import sys
 
-def SumOfDigits(num : int) -> int:
-    num = str(num)
-    if len(num) == 1:
-        return int(num)
-    return int(num[0]) + SumOfDigits(int(num[1:]))
-    
-def SumofDigitsIterative(num : int) -> int:
-    holder = 0
-    strNum = str(num)
-    for element in strNum:
-        holder += int(element)
-    return holder
+class SolutionSumOfDigits:
+    def SumOfDigits(self, num : int) -> int:
+        num = str(num)
+        if len(num) == 1:
+            return int(num)
+        return int(num[0]) + self.SumOfDigits(int(num[1:]))
+        
+    def SumofDigitsIterative(self, num : int) -> int:
+        holder = 0
+        strNum = str(num)
+        for element in strNum:
+            holder += int(element)
+        return holder
 
  #ex 23   
 
-
-  
 class SolutionCombinations:
     def combine(self, n: int, k: int) -> List[List[int]]:
         #[1,n] 
@@ -37,6 +36,26 @@ class SolutionCombinations:
         backtrack([], 1)   
         return result
        
+class SolutionCombinationSum:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        result = []
+        candidates_len = len(candidates)
+        def combinationSumHelper(comb, start_index):
+            if(sum(comb) == target):
+                result.append(comb.copy())
+                return
+            if(sum(comb) > target):
+                return
+            else:
+                for index in range(start_index, candidates_len):
+                    comb.append(candidates[index])
+                    combinationSumHelper(comb, index)
+                    comb.pop()
+            
+        combinationSumHelper([], 0)
+                    
+        return result
+
 class SolutionStairs:         
     def climbStairsDP(self, n): 
         lookup = {}
@@ -72,149 +91,128 @@ class SolutionStairs:
             prev1 = dp
 
         return prev1
-            
-def permute(nums: List[int]) -> List[List[int]]:
-    result = []
-    
-    def swap(nums, i, j):
-        nums[i], nums[j] = nums[j], nums[i]
-    
-    def permute_helper(nums, index):
-        if(index == len(nums)):
-            result.append(nums.copy())
-            return
-        for i in range(index, len(nums)):
-                swap(nums, i, index)
-                permute_helper(nums, index + 1)
-                swap(nums, i, index)
-    
-    
-    permute_helper(nums, 0)
-    
-    return result            
+  
+class SolutionPermutations:          
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        result = []
         
-
-def minPathSumBottomUp(grid: List[List[int]]) -> int:
-    
-    row_len = len(grid[0])
-    col_len = len(grid)
+        def swap(nums, i, j):
+            nums[i], nums[j] = nums[j], nums[i]
         
-    def dfs(grid, i, j):
-        #last element bottom left corner
-        if(i == col_len - 1 and j == row_len -1):
-            return grid[i][j]  
-        elif(i >= col_len or j >= row_len):
-            return sys.maxsize
-        else:
-            return grid[i][j] + min(dfs(grid, i + 1, j),
-                                    dfs(grid, i, j + 1))
-            
-                
-    return dfs(grid, 0, 0)
-    
-def minPathSum(grid: List[List[int]]) -> int:
-    m = len(grid)
-    n = len(grid[0])
-
-    for i in range(m):
-      for j in range(n):
-        if i > 0 and j > 0:
-          grid[i][j] += min(grid[i - 1][j], grid[i][j - 1])
-        elif i > 0:
-          grid[i][0] += grid[i - 1][0]
-        elif j > 0:
-          grid[0][j] += grid[0][j - 1]
-
-    return grid[m - 1][n - 1]   
-    
-
-def minPathSumBottomUpDP(grid: List[List[int]]) -> int:
-    
-    row_len = len(grid[0])
-    col_len = len(grid)
-    dp_cost = [] * row_len
-    
-    print(dp_cost)
-    
-    def dfs(grid, i, j):
-        #last element bottom left corner
-        if(i == col_len - 1 and j == row_len -1):
-            return grid[i][j]  
-        elif(i >= col_len or j >= row_len):
-            return sys.maxsize
-        else:
-            if(not dp_cost or not dp_cost[i][j]):
-                dp_cost.appendgrid[i][j] + min(dfs(grid, i + 1, j),
-                                                dfs(grid, i, j + 1))
+        def permute_helper(nums, index):
+            if(index == len(nums)):
+                result.append(nums.copy())
                 return
-            else:
-                return dp_cost[i][j]
+            for i in range(index, len(nums)):
+                    swap(nums, i, index)
+                    permute_helper(nums, index + 1)
+                    swap(nums, i, index)
+        
+        
+        permute_helper(nums, 0)
+        
+        return result            
+        
+class SolutionMinPathSum:
+    def minPathSumBottomUp(self, grid: List[List[int]]) -> int:
+    
+        row_len = len(grid[0])
+        col_len = len(grid)
             
+        def dfs(grid, i, j):
+            #last element bottom left corner
+            if(i == col_len - 1 and j == row_len -1):
+                return grid[i][j]  
+            elif(i >= col_len or j >= row_len):
+                return sys.maxsize
+            else:
+                return grid[i][j] + min(dfs(grid, i + 1, j),
+                                        dfs(grid, i, j + 1))
                 
-    return dfs(grid, 0, 0)
+                    
+        return dfs(grid, 0, 0)
+        
+    def minPathSum(self, grid: List[List[int]]) -> int:
+        m = len(grid)
+        n = len(grid[0])
 
-def minPathSumTopDown(grid: List[List[int]]) -> int:
-    def minCost(cost, m, n):
-        if (n < 0 or m < 0):
-            return sys.maxsize
-        elif (m == 0 and n == 0):
-            return cost[m][n]
-        else:
-            return cost[m][n] + min(minCost(cost, m-1, n),
-                                    minCost(cost, m, n-1))
-    return minCost(grid, len(grid)-1, len(grid[0])-1)
-  
-  
-  
-def uniquePaths(m: int, n: int) -> int:  
-    def recu(m, n):
-        if(m == 0 and n == 0):
-            return 1
-        if(m < 0 or n < 0):
-            return 0
-        return (recu(m - 1, n) + recu(m, n - 1))
+        for i in range(m):
+            for j in range(n):
+                if i > 0 and j > 0:
+                    grid[i][j] += min(grid[i - 1][j], grid[i][j - 1])
+                elif i > 0:
+                    grid[i][0] += grid[i - 1][0]
+                elif j > 0:
+                    grid[0][j] += grid[0][j - 1]
 
-    return recu(m-1, n-1)
+        return grid[m - 1][n - 1]   
+    
+
+    def minPathSumBottomUpDP(self, grid: List[List[int]]) -> int:
+    
+        row_len = len(grid[0])
+        col_len = len(grid)
+        dp_cost = [] * row_len
+        
+        print(dp_cost)
+        
+        def dfs(grid, i, j):
+            #last element bottom left corner
+            if(i == col_len - 1 and j == row_len -1):
+                return grid[i][j]  
+            elif(i >= col_len or j >= row_len):
+                return sys.maxsize
+            else:
+                if(not dp_cost or not dp_cost[i][j]):
+                    dp_cost.appendgrid[i][j] + min(dfs(grid, i + 1, j),
+                                                    dfs(grid, i, j + 1))
+                    return
+                else:
+                    return dp_cost[i][j]
+                
+                    
+        return dfs(grid, 0, 0)
+
+    def minPathSumTopDown(self, grid: List[List[int]]) -> int:
+        def minCost(cost, m, n):
+            if (n < 0 or m < 0):
+                return sys.maxsize
+            elif (m == 0 and n == 0):
+                return cost[m][n]
+            else:
+                return cost[m][n] + min(minCost(cost, m-1, n),
+                                        minCost(cost, m, n-1))
+        return minCost(grid, len(grid)-1, len(grid[0])-1)
+    
+class SolutionUniquePaths:
+
+    def uniquePaths(self, m: int, n: int) -> int:  
+        def recu(m, n):
+            if(m == 0 and n == 0):
+                return 1
+            if(m < 0 or n < 0):
+                return 0
+            return (recu(m - 1, n) + recu(m, n - 1))
+
+        return recu(m-1, n-1)
       
         
-def uniquePathsDP(m: int, n: int) -> int:  
-    dp = [[0] * (m) for i in range((n))]
-    def recu(m, n):
-        if(m == 0 and n == 0):
-            return 1
-        if(m < 0 or n < 0):
-            return 0
-        if(dp[n][m] > 0):
+    def uniquePathsDP(self, m: int, n: int) -> int:  
+        dp = [[0] * (m) for i in range((n))]
+        def recu(m, n):
+            if(m == 0 and n == 0):
+                return 1
+            if(m < 0 or n < 0):
+                return 0
+            if(dp[n][m] > 0):
+                return dp[n][m]
+            dp[n][m] = (recu(m - 1, n) + recu(m, n - 1))
             return dp[n][m]
-        dp[n][m] = (recu(m - 1, n) + recu(m, n - 1))
-        return dp[n][m]
 
-    return recu(m-1, n-1,)
-
-
-
-def combinationSum(candidates: List[int], target: int) -> List[List[int]]:
-    result = []
-    candidates_len = len(candidates)
-    def combinationSumHelper(comb, start_index):
-        if(sum(comb) == target):
-            result.append(comb.copy())
-            return
-        if(sum(comb) > target):
-            return
-        else:
-            for index in range(start_index, candidates_len):
-                comb.append(candidates[index])
-                combinationSumHelper(comb, index)
-                comb.pop()
-          
-    combinationSumHelper([], 0)
-                
-    return result
-
+        return recu(m-1, n-1,)
 
 class SolutionPhoneNums:
-    def letterCombinationsArray(self, digits: str):
+    def phoneNumbersArray(self, digits: str):
         d = {
             "2" : "abc",
             "3" : "def",
@@ -263,21 +261,8 @@ class SolutionPhoneNums:
         if(digits):
             backtrack(0, "")
         return result                 
-                
+
 class SolutionLongestCommonSubsequence:
-    def longestCommonSubsequence1(self, text1: str, text2: str) -> int:            
-        result = 0
-        current_longest_subsequence = []
-        def backtrack(index, t1, t2):
-            return 0
-
-
-    #def longestCommonSubsequence2(self, text1: str, text2: str) -> int:  
-        
-        
-
-
-    
     def longestCommonSubsequence3(self, text1: str, text2: str) -> int:  
         
         overall_max = 0
@@ -296,22 +281,15 @@ class SolutionLongestCommonSubsequence:
         
 
             
-            
-print(combinationSum([2,3,6,7], 7)) 
+sol = SolutionCombinationSum()          
+print(sol.combinationSum([2,3,6,7], 7)) 
 """ 
 sol = SolutionLongestCommonSubsequence()
 print(sol.longestCommonSubsequence2("adbec", "werbipewwa"))
  """
 
-
-
-
-
-
 sol = SolutionPhoneNums()
 print(sol.phoneNumbers("23"))
-
-
 
 #print(uniquePaths(3,7))
 

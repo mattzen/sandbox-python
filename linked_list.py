@@ -6,7 +6,7 @@ class ListNode:
         self.val = x
         self.next = None
 
-class SolutionLinkedList:
+class SolutionLinkedListHasCycle:
     def printLinkedList(self, head: Optional[ListNode]):
         while(head):
             print(head.val)
@@ -93,7 +93,7 @@ n.next.next.next.next = n.next
   
 n1 = ListNode(1)
 
-sol = SolutionLinkedList()
+sol = SolutionLinkedListHasCycle()
 if(sol.detectLoopTwoPointers(n)):
     print("Loop Found")
 else:

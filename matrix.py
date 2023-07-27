@@ -1,7 +1,7 @@
 import math
 from typing import List
 
-class SolutionMatrix:
+class SolutionMatrixRotate90:
     
     def swap(self, matrix, i, j, k, l):
         temp = matrix[i][j]
@@ -29,6 +29,6 @@ matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]]
 #matrix = [[1,2],[3,4]]
 
 print(matrix)
-sol = SolutionMatrix()
+sol = SolutionMatrixRotate90()
 sol.rotate_90(matrix)
 print(matrix)

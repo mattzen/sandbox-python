@@ -278,18 +278,46 @@ class SolutionLongestCommonSubsequence:
         backtrack(0,0, 0)
         return overall_max
         
-        
+    def lcsRecursiveNaive(X, Y, m, n):
+ 
+        if m == 0 or n == 0:
+            return 0;
+        elif X[m-1] == Y[n-1]:
+            return 1 + lcs(X, Y, m-1, n-1);
+        else:
+            return max(lcs(X, Y, m, n-1), lcs(X, Y, m-1, n));
+ 
+class SolutionSubsets:
+    def subset(self, nums):
+        result = []
+        current_comb = []
+        def backtrack(i):
+            if(i >= len(nums)):
+                result.append(current_comb.copy())
+                return
+            current_comb.append(nums[i])
+            backtrack(i + 1)
+            current_comb.pop()
+            backtrack(i + 1)
+        backtrack(0)
+        return result
+    
+    
+
+
+sol = SolutionSubsets()
+print(sol.subset([1,2,3]))
 
             
-sol = SolutionCombinationSum()          
-print(sol.combinationSum([2,3,6,7], 7)) 
+""" sol = SolutionCombinationSum()          
+print(sol.combinationSum([2,3,6,7], 7))  """
 """ 
 sol = SolutionLongestCommonSubsequence()
 print(sol.longestCommonSubsequence2("adbec", "werbipewwa"))
  """
 
-sol = SolutionPhoneNums()
-print(sol.phoneNumbers("23"))
+""" sol = SolutionPhoneNums()
+print(sol.phoneNumbers("23")) """
 
 #print(uniquePaths(3,7))
 

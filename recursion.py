@@ -302,6 +302,17 @@ class SolutionSubsets:
         backtrack(0)
         return result
     
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        ans = []
+
+        def dfs(s: int, path: List[int]) -> None:
+            ans.append(path)
+            for i in range(s, len(nums)):
+                dfs(i + 1, path + [nums[i]])
+
+        dfs(0, [])
+        return ans
+    
 
 def longestIncreasingSubarrayConsecutive(nums):
     max_length = 0
@@ -324,7 +335,7 @@ def longestIncreasingSubarrayStrict(nums):
                  
     return max(dp)
 
-def lisRecursive(arr):
+def lisRecursive1(arr):
  
     # To allow the access of global variable
     global maximum
@@ -366,13 +377,37 @@ def lisRecursive(arr):
     _lis(arr, n)
     return maximum
 
-print(lisRecursive([0,1,0,3,2,3]))
+def lisIterative2(arr):
+    n = len(arr)
+ 
+    # Declare the list (array) for LIS and
+    # initialize LIS values for all indexes
+    lis = [1]*n
+ 
+    # Compute optimized LIS values in bottom up manner
+    for i in range(1, n):
+        for j in range(0, i):
+            if arr[i] > arr[j] and lis[i] < lis[j] + 1:
+                lis[i] = lis[j]+1
+ 
+    # Initialize maximum to 0 to get
+    # the maximum of all LIS
+    maximum = 0
+ 
+    # Pick maximum of all LIS values
+    for i in range(n):
+        maximum = max(maximum, lis[i])
+ 
+    return maximum
+
+""" print(lisIterative2([2,5,3,7,101,18]))
+print(lisIterative2([0,1,0,3,2,3])) """
     
     
-        
-""" sol = SolutionSubsets()
-print(sol.subset([1,2,3]))
- """
+sol = SolutionSubsets()
+print(sol.subsets([1,2,3,4]))
+
+
             
 """ sol = SolutionCombinationSum()          
 print(sol.combinationSum([2,3,6,7], 7))  """

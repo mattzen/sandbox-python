@@ -331,7 +331,7 @@ class SolutionLIS:
         for i in range(len(nums) -1, -1, -1):
             for j in range(i + 1, len(nums)):
                 if(nums[i] < nums[j]):
-                    dp[i] = max(nums[i], 1 + nums[j])
+                    dp[i] = max(dp[i], 1 + dp[j])
                     
         return max(dp)
 
@@ -400,10 +400,13 @@ class SolutionLIS:
     
         return maximum
 
-""" print(lisIterative2([2,5,3,7,101,18]))
-print(lisIterative2([0,1,0,3,2,3])) """
-    
-    
+
+sol = SolutionLIS()
+
+print(sol.longestIncreasingSubarrayStrict([0,1,0,3,7,5]))
+print(sol.longestIncreasingSubarrayStrict2([0,1,0,3,7,5]))
+print(sol.longestIncreasingSubarrayStrict2([2,5,3,7,101,18]))
+ 
 sol = SolutionSubsets()
 print(sol.subsets([1,2,3,4]))
 

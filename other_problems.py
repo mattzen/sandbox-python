@@ -84,3 +84,38 @@ def reverseWords(s: str) -> str:
         final_sentence += " " + result[last_index]
     return final_sentence
 
+class SolutionRotateArray:
+    def swap(self, nums, i, j):
+        temp = nums[i]
+        nums[i] = nums[j]
+        nums[j] = temp
+
+    def rotate1(self, nums: List[int], k: int) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        for i in range(k):
+            for j in range(len(nums) - 1, 0, -1):
+                self.swap(nums, j, j - 1)
+                6
+        print(nums)    
+        
+    def rotate2(self, nums: List[int], k: int) -> None: 
+        mod = k % len(nums)  
+        a = nums[:-mod]
+        b = nums[-mod:]
+        a.reverse()
+        b.reverse()
+        nums[:-mod] = a
+        nums[-mod:] = b
+        nums.reverse()
+        print(nums)
+
+
+
+
+
+
+
+sol = SolutionRotateArray()
+print(sol.rotate2([1,2,3,4,5,6,7], 10))

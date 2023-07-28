@@ -313,92 +313,92 @@ class SolutionSubsets:
         dfs(0, [])
         return ans
     
+class SolutionLIS:
+    def longestIncreasingSubarrayConsecutive(self, nums):
+        max_length = 0
+        current_length = 1
+        for i in range(len(nums)):
+            if(i + 1 < len(nums)):
+                if(nums[i] < nums[i + 1]):
+                    current_length += 1
+                else:
+                    current_length = 1
+                max_length = max(max_length, current_length)
+        return max_length
+    
+    def longestIncreasingSubarrayStrict(self, nums):
+        dp = [1] * len(nums)
+        for i in range(len(nums) -1, -1, -1):
+            for j in range(i + 1, len(nums)):
+                if(nums[i] < nums[j]):
+                    dp[i] = max(nums[i], 1 + nums[j])
+                    
+        return max(dp)
 
-def longestIncreasingSubarrayConsecutive(nums):
-    max_length = 0
-    current_length = 1
-    for i in range(len(nums)):
-        if(i + 1 < len(nums)):
-            if(nums[i] < nums[i + 1]):
-                current_length += 1
-            else:
-                current_length = 1
-            max_length = max(max_length, current_length)
-    return max_length
-   
-def longestIncreasingSubarrayStrict(nums):
-    dp = [1] * len(nums)
-    for i in range(len(nums) -1, -1, -1):
-        for j in range(i + 1, len(nums)):
-            if(nums[i] < nums[j]):
-                dp[i] = max(nums[i], 1 + nums[j])
-                 
-    return max(dp)
-
-def lisRecursive1(arr):
- 
-    # To allow the access of global variable
-    global maximum
- 
-    # Length of arr
-    n = len(arr)
- 
-    # Maximum variable holds the result
-    maximum = 1
-
-    # The function _lis() stores its result in maximum
-    def _lis(arr, n):
+    def lisRecursive1(self, arr):
+    
         # To allow the access of global variable
         global maximum
     
-        # Base Case
-        if n == 1:
-            return 1
+        # Length of arr
+        n = len(arr)
     
-        # maxEndingHere is the length of LIS ending with arr[n-1]
-        maxEndingHere = 1
-    
-        # Recursively get all LIS ending with
-        # arr[0], arr[1]..arr[n-2]
-        # If arr[i-1] is smaller than arr[n-1], and
-        # max ending with arr[n-1] needs to be updated,
-        # then update it
-        for i in range(1, n):
-            res = _lis(arr, i)
-            if arr[i-1] < arr[n-1] and res+1 > maxEndingHere:
-                maxEndingHere = res + 1
-    
-        # Compare maxEndingHere with overall maximum. And
-        # update the overall maximum if needed
-        maximum = max(maximum, maxEndingHere)
-    
-        return maxEndingHere
-    
-    _lis(arr, n)
-    return maximum
+        # Maximum variable holds the result
+        maximum = 1
 
-def lisIterative2(arr):
-    n = len(arr)
- 
-    # Declare the list (array) for LIS and
-    # initialize LIS values for all indexes
-    lis = [1]*n
- 
-    # Compute optimized LIS values in bottom up manner
-    for i in range(1, n):
-        for j in range(0, i):
-            if arr[i] > arr[j] and lis[i] < lis[j] + 1:
-                lis[i] = lis[j]+1
- 
-    # Initialize maximum to 0 to get
-    # the maximum of all LIS
-    maximum = 0
- 
-    # Pick maximum of all LIS values
-    for i in range(n):
-        maximum = max(maximum, lis[i])
- 
-    return maximum
+        # The function _lis() stores its result in maximum
+        def _lis(arr, n):
+            # To allow the access of global variable
+            global maximum
+        
+            # Base Case
+            if n == 1:
+                return 1
+        
+            # maxEndingHere is the length of LIS ending with arr[n-1]
+            maxEndingHere = 1
+        
+            # Recursively get all LIS ending with
+            # arr[0], arr[1]..arr[n-2]
+            # If arr[i-1] is smaller than arr[n-1], and
+            # max ending with arr[n-1] needs to be updated,
+            # then update it
+            for i in range(1, n):
+                res = _lis(arr, i)
+                if arr[i-1] < arr[n-1] and res+1 > maxEndingHere:
+                    maxEndingHere = res + 1
+        
+            # Compare maxEndingHere with overall maximum. And
+            # update the overall maximum if needed
+            maximum = max(maximum, maxEndingHere)
+        
+            return maxEndingHere
+        
+        _lis(arr, n)
+        return maximum
+
+    def longestIncreasingSubarrayStrict2(self, arr):
+        n = len(arr)
+    
+        # Declare the list (array) for LIS and
+        # initialize LIS values for all indexes
+        lis = [1]*n
+    
+        # Compute optimized LIS values in bottom up manner
+        for i in range(1, n):
+            for j in range(0, i):
+                if arr[i] > arr[j] and lis[i] < lis[j] + 1:
+                    lis[i] = lis[j]+1
+    
+        # Initialize maximum to 0 to get
+        # the maximum of all LIS
+        maximum = 0
+    
+        # Pick maximum of all LIS values
+        for i in range(n):
+            maximum = max(maximum, lis[i])
+    
+        return maximum
 
 """ print(lisIterative2([2,5,3,7,101,18]))
 print(lisIterative2([0,1,0,3,2,3])) """

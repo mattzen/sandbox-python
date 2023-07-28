@@ -21,6 +21,20 @@ def ReturnNonDuplicate(nums):
     return functools.reduce(lambda x,y: x^y, nums)
 
 
+def valueTypeVsReferenceType():
+    arr = [1,2,3,4]
+    arr2 = arr
+    #modifies arr2
+    arr.append(5)
+
+    a = 2
+    b = a
+    #doesnt modify a
+    b = 4
+
+    print(a, b, arr2)
+
+
 
         
 

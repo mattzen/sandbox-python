@@ -263,29 +263,26 @@ class SolutionPhoneNums:
         return result                 
 
 class SolutionLongestCommonSubsequence:
-    def longestCommonSubsequence3(self, text1: str, text2: str) -> int:  
+    def longestCommonSubsequence3(self, text1: str, text2: str) -> int:    
+        m = len(text1)
+        n = len(text2)
+        # dp[i][j] := LCS's length of text1[0..i) and text2[0..j)
+        dp = [[0] * (n + 1) for _ in range(m + 1)]
+
+        for i in range(m):
+            for j in range(n):
+                dp[i + 1][j + 1] = 1 + dp[i][j] if text1[i] == text2[j] else max(dp[i][j + 1], dp[i + 1][j])
+
+        return dp[m][n]
         
-        overall_max = 0
-        
-        def backtrack(index1, index2, current_longest):
-            if(index1 == len(text1) and index2 == len(text2)):
-                overall_max = max(overall_max, current_longest)
-                return
-            for i in range(index1, len(text1)):
-                for j in range(index2, len(text2)):
-                    backtrack(index1 + i, index2 + j, current_longest)
-                    
-        backtrack(0,0, 0)
-        return overall_max
-        
-    def lcsRecursiveNaive(X, Y, m, n):
+    def lcsRecursiveNaive(self, X, Y, m, n):
  
         if m == 0 or n == 0:
             return 0;
         elif X[m-1] == Y[n-1]:
-            return 1 + lcs(X, Y, m-1, n-1);
+            return 1 + self.lcsRecursiveNaive(X, Y, m-1, n-1)
         else:
-            return max(lcs(X, Y, m, n-1), lcs(X, Y, m-1, n));
+            return max(self.lcsRecursiveNaive(X, Y, m, n-1), self.lcsRecursiveNaive(X, Y, m-1, n))
  
 class SolutionSubsets:
     def subset(self, nums):
@@ -314,18 +311,6 @@ class SolutionSubsets:
         return ans
     
 class SolutionLIS:
-    def longestIncreasingSubarrayConsecutive(self, nums):
-        max_length = 0
-        current_length = 1
-        for i in range(len(nums)):
-            if(i + 1 < len(nums)):
-                if(nums[i] < nums[i + 1]):
-                    current_length += 1
-                else:
-                    current_length = 1
-                max_length = max(max_length, current_length)
-        return max_length
-    
     def longestIncreasingSubarrayStrict(self, nums):
         dp = [1] * len(nums)
         for i in range(len(nums) -1, -1, -1):
@@ -401,23 +386,23 @@ class SolutionLIS:
         return maximum
 
 
-sol = SolutionLIS()
+""" sol = SolutionLIS()
 
 print(sol.longestIncreasingSubarrayStrict([0,1,0,3,7,5]))
 print(sol.longestIncreasingSubarrayStrict2([0,1,0,3,7,5]))
 print(sol.longestIncreasingSubarrayStrict2([2,5,3,7,101,18]))
  
 sol = SolutionSubsets()
-print(sol.subsets([1,2,3,4]))
+print(sol.subsets([1,2,3,4])) """
 
 
             
 """ sol = SolutionCombinationSum()          
 print(sol.combinationSum([2,3,6,7], 7))  """
-""" 
+
 sol = SolutionLongestCommonSubsequence()
-print(sol.longestCommonSubsequence2("adbec", "werbipewwa"))
- """
+print(sol.longestCommonSubsequence3("adbec", "werbipewwa"))
+
 
 """ sol = SolutionPhoneNums()
 print(sol.phoneNumbers("23")) """

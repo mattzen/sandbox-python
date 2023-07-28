@@ -315,37 +315,6 @@ def longestIncreasingSubarrayConsecutive(nums):
             max_length = max(max_length, current_length)
     return max_length
    
-def longestIncreasingSubarrayStrict(nums):           
-    def sub(nums):
-        last_element = nums[0]
-        max_length = 1
-        for i in range(1, len(nums)):
-            if(last_element < nums[i]):
-                max_length += 1
-                last_element = nums[i]
-        return max_length
-     
-    nums = [0,1,0,3,2,3]
-    result = []
-    for i in range(len(nums)):
-        result.append(sub(nums[i:]))
-    print(max(result))
-    
-def longestIncreasingSubarrayStrict1(nums):
-    dp = [0] * len(nums)
-    def sub(index):
-        if(index > len(nums)):
-            return 0
-        if(nums[index] > nums[index + 1]):
-            return 0
-        for i in range(index, len(nums)):
-            dp[i] = 1 + sub(index + 1)
-            
-            
-    sub(0)
-    return dp
-
-
 def longestIncreasingSubarrayStrict(nums):
     dp = [1] * len(nums)
     for i in range(len(nums) -1, -1, -1):
@@ -355,8 +324,49 @@ def longestIncreasingSubarrayStrict(nums):
                  
     return max(dp)
 
+def lisRecursive(arr):
+ 
+    # To allow the access of global variable
+    global maximum
+ 
+    # Length of arr
+    n = len(arr)
+ 
+    # Maximum variable holds the result
+    maximum = 1
 
-print(longestIncreasingSubarrayStrict([0,1,0,3,2,3]))
+    # The function _lis() stores its result in maximum
+    def _lis(arr, n):
+        # To allow the access of global variable
+        global maximum
+    
+        # Base Case
+        if n == 1:
+            return 1
+    
+        # maxEndingHere is the length of LIS ending with arr[n-1]
+        maxEndingHere = 1
+    
+        # Recursively get all LIS ending with
+        # arr[0], arr[1]..arr[n-2]
+        # If arr[i-1] is smaller than arr[n-1], and
+        # max ending with arr[n-1] needs to be updated,
+        # then update it
+        for i in range(1, n):
+            res = _lis(arr, i)
+            if arr[i-1] < arr[n-1] and res+1 > maxEndingHere:
+                maxEndingHere = res + 1
+    
+        # Compare maxEndingHere with overall maximum. And
+        # update the overall maximum if needed
+        maximum = max(maximum, maxEndingHere)
+    
+        return maxEndingHere
+    
+    _lis(arr, n)
+    return maximum
+
+print(lisRecursive([0,1,0,3,2,3]))
     
     
         

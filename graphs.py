@@ -75,6 +75,28 @@ class SolutionNumOfIslands:
                     queue.append(grid[m, n + 1])
 
 
+    def countIslands(self, grid: List[List[str]]) -> int:
+        islands_count = 0
+        directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        len_row = len(grid)
+        len_column = len(grid[0])
+        
+        
+        def dfs(row, column):
+            if(row >= len_row or column >= len_column or row < 0 or column < 0):
+                return
+            if(grid[row][column] == "0" or grid[row][column] == "-1" ):
+                return
+            grid[row][column] = "-1"
+            for dir in directions:
+                dfs(row + dir[0], column + dir[1])
+                
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if(grid[i][j] == "1"):
+                    dfs(i, j)
+                    islands_count += 1
+        return islands_count
 
 
 grid = [
@@ -85,5 +107,5 @@ grid = [
 ]
 
 sol = SolutionNumOfIslands()
-print(sol.numIslandsBFSMy(grid))
+print(sol.countIslands(grid))
 #print(sol.numIslandsBFS(grid))

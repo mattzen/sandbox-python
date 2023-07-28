@@ -302,12 +302,67 @@ class SolutionSubsets:
         backtrack(0)
         return result
     
+
+def longestIncreasingSubarrayConsecutive(nums):
+    max_length = 0
+    current_length = 1
+    for i in range(len(nums)):
+        if(i + 1 < len(nums)):
+            if(nums[i] < nums[i + 1]):
+                current_length += 1
+            else:
+                current_length = 1
+            max_length = max(max_length, current_length)
+    return max_length
+   
+def longestIncreasingSubarrayStrict(nums):           
+    def sub(nums):
+        last_element = nums[0]
+        max_length = 1
+        for i in range(1, len(nums)):
+            if(last_element < nums[i]):
+                max_length += 1
+                last_element = nums[i]
+        return max_length
+     
+    nums = [0,1,0,3,2,3]
+    result = []
+    for i in range(len(nums)):
+        result.append(sub(nums[i:]))
+    print(max(result))
     
+def longestIncreasingSubarrayStrict1(nums):
+    dp = [0] * len(nums)
+    def sub(index):
+        if(index > len(nums)):
+            return 0
+        if(nums[index] > nums[index + 1]):
+            return 0
+        for i in range(index, len(nums)):
+            dp[i] = 1 + sub(index + 1)
+            
+            
+    sub(0)
+    return dp
 
 
-sol = SolutionSubsets()
+def longestIncreasingSubarrayStrict(nums):
+    dp = [1] * len(nums)
+    for i in range(len(nums) -1, -1, -1):
+        for j in range(i + 1, len(nums)):
+            if(nums[i] < nums[j]):
+                dp[i] = max(nums[i], 1 + nums[j])
+                 
+    return max(dp)
+
+
+print(longestIncreasingSubarrayStrict([0,1,0,3,2,3]))
+    
+    
+        
+""" sol = SolutionSubsets()
 print(sol.subset([1,2,3]))
-
+ """
             
 """ sol = SolutionCombinationSum()          
 print(sol.combinationSum([2,3,6,7], 7))  """

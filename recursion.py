@@ -385,6 +385,65 @@ class SolutionLIS:
     
         return maximum
 
+class SolutionCoinChange:
+    def coinChangeRecursiveAllCombinations(self, coins: List[int], amount: int) -> int:
+        all_combs = []
+        def back(index, current_comb):
+            if(index == len(coins)):
+                return 
+            if(sum(current_comb) > amount):
+                return
+            if(sum(current_comb) == amount):
+                all_combs.append(current_comb.copy())
+                return   
+            for i in range(index, len(coins)):
+                current_comb.append(coins[i])
+                back(i, current_comb)
+                current_comb.pop()
+        back(0, [])
+        return all_combs
+    
+    def coinChangeRecursiveAllCombinationsMinLen(self, coins: List[int], amount: int) -> int:
+        global minlen
+        minlen = float("inf")
+        def back(index, current_comb):
+            print(index)
+            global minlen
+            if(index == len(coins)):
+                return 
+            if(sum(current_comb) > amount):
+                return
+            if(sum(current_comb) == amount):
+                minlen = min(minlen, len(current_comb))
+                return   
+            for i in range(index, len(coins)):
+                current_comb.append(coins[i])
+                back(i, current_comb)
+                current_comb.pop()
+        back(0, [])
+        return minlen
+    
+    def coinChangeDP(self, coins: List[int], amount: int) -> int:
+        dp = [] * amount
+        
+        
+        def back(index, current_amount):
+            if(current_amount == amount):
+                return 1
+            if(current_amount > amount):
+                return 0
+            if(index <= 0):
+                return 0
+            for i in range(amount -1 , -1, -1):
+                dp[i] = dp[i], 1 +  back(i - 1, current_amount + coins[i])  
+
+        back(len(coins)-1, 0)
+        return min(dp)
+
+
+sol = SolutionCoinChange()
+print(sol.coinChangeDP([1,3,4,5], 7))
+
 
 """ sol = SolutionLIS()
 
@@ -400,10 +459,10 @@ print(sol.subsets([1,2,3,4])) """
 """ sol = SolutionCombinationSum()          
 print(sol.combinationSum([2,3,6,7], 7))  """
 
-sol = SolutionLongestCommonSubsequence()
+""" sol = SolutionLongestCommonSubsequence()
 print(sol.longestCommonSubsequence3("adbec", "werbipewwa"))
 
-
+ """
 """ sol = SolutionPhoneNums()
 print(sol.phoneNumbers("23")) """
 

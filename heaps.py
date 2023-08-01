@@ -17,8 +17,18 @@ class SolutionHeaps:
                 heapq.heappop(minHeap)
 
         return minHeap[0]
-        
     
+    def findKthLargest3(self, nums: List[int], k: int) -> int:
+        minHeap = []
+
+        for num in nums:
+            minHeap.append(num)
+            self.buildHeap(minHeap)
+            if len(minHeap) > k:
+                minHeap.pop()
+
+        return minHeap[0]
+     
     
     def recalculateDown(self, nums):
         index = 0

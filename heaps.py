@@ -1,58 +1,17 @@
 from collections import deque
 import heapq
 from typing import *
-
-
-
-
-
 class SolutionHeaps:
     
     def findKthLargest2(self, nums: List[int], k: int) -> int:
         minHeap = []
-
         for num in nums:
             heapq.heappush(minHeap, num)
             if len(minHeap) > k:
                 heapq.heappop(minHeap)
 
         return minHeap[0]
-    
-    def findKthLargest3(self, nums: List[int], k: int) -> int:
-        minHeap = []
-
-        for num in nums:
-            minHeap.append(num)
-            self.buildHeap(minHeap)
-            if len(minHeap) > k:
-                minHeap.pop()
-
-        return minHeap[0]
-     
-    
-    def recalculateDown(self, nums):
-        index = 0
-        while (2*index + 1 < len(nums)):
-            smallerIndex = 2* index + 1
-            if (2*index + 2 < len(nums) and nums[2*index + 1] < nums[2*index + 2]):
-            
-                smallerIndex = 2*index + 2
-            if (nums[smallerIndex] >= nums[index]):
-                break
         
-            nums[smallerIndex], nums[index] = nums[index], nums[smallerIndex]
- 
-    def findKthLargest(self, nums: List[int], k: int) -> int:
-          # Index of last non-leaf node
-        self.buildHeap(nums)
-        
-
-        for i in range(k-1):
-            nums.pop(0)
-            self.heapify(self, nums, len(nums), 0)
-             
-        return nums[0]
-                 
     def buildHeap(self, nums):
         n= len(nums)
         startIdx = n // 2 - 1
@@ -83,9 +42,76 @@ class SolutionHeaps:
     
             # Recursively heapify the affected sub-tree
             self.heapify(arr, N, largest)
+
+class SolutionQuickSelect:
+    def findKthLargest1(self, nums: List[int], k: int) -> int:
+        def quickSelect(l: int, r: int, k: int) -> int:
+            pivot = nums[r]
+
+            nextSwapped = l
+            for i in range(l, r):
+                if nums[i] >= pivot:
+                    nums[nextSwapped], nums[i] = nums[i], nums[nextSwapped]
+                    nextSwapped += 1
+            nums[nextSwapped], nums[r] = nums[r], nums[nextSwapped]
+
+            count = nextSwapped - l + 1  # Number of nums >= pivot
+            if count == k:
+                return nums[nextSwapped]
+            if count > k:
+                return quickSelect(l, nextSwapped - 1, k)
+            return quickSelect(nextSwapped + 1, r, k - count)
+
+        return quickSelect(0, len(nums) - 1, k)
+
+    def partition(self, nums: List[int], left: int, right: int) -> int:
+        pivot, fill = nums[right], left
+
+        for i in range(left, right):
+            if nums[i] <= pivot:
+                nums[fill], nums[i] = nums[i], nums[fill]
+                fill += 1
+
+        nums[fill], nums[right] = nums[right], nums[fill]
+
+        return fill
+
+    def findKthLargest2(self, nums: List[int], k: int) -> int:
+            k = len(nums) - k
+            left, right = 0, len(nums) - 1
+
+            while left < right:
+                pivot = self.partition(nums, left, right)
+
+                if pivot < k:
+                    left = pivot + 1
+                elif pivot > k:
+                    right = pivot - 1
+                else:
+                    break
+
+            return nums[k]
         
-    
+    def findKthLargest3(self, nums: List[int], k: int) -> int:
+            k = len(nums) - k
+            left, right = 0, len(nums) - 1
+
+            while left < right:
+                pivot = self.partition(nums, left, right)
+
+                if pivot < k:
+                    left = pivot + 1
+                elif pivot > k:
+                    right = pivot - 1
+                else:
+                    break
+
+            return nums[k]
 
 
-sol  = SolutionHeaps()
-print(sol.findKthLargest2([3,2,3,1,2,4,5,5,6], 4))
+sol  = SolutionQuickSelect()
+print(sol.findKthLargest([3,2,3,1,2,4,5,5,6], 4))
+
+
+#sol  = SolutionHeaps()
+#print(sol.findKthLargest2([3,2,3,1,2,4,5,5,6], 4))

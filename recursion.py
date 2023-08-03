@@ -441,10 +441,52 @@ class SolutionCoinChange:
         return min(dp)
 
 
-sol = SolutionCoinChange()
+
+
+def iter(s, i):
+    if(i < 10):
+        return iter(s + 1, i + 1)
+    return s
+
+#print(iter(0,0))
+
+
+
+def ParenthesisComb(n):
+    result = []
+    
+    def back(current_comb):  
+        if(len(current_comb) == n*2):
+            result.append(current_comb.copy())
+            return
+        if(current_comb and current_comb[-1] == "("):
+            current_comb.append(")")
+            return
+        current_comb.append("(")
+        back(current_comb)
+
+        
+        
+    back([])
+    return result
+
+
+
+
+
+
+print(ParenthesisComb(3))
+
+
+
+
+
+
+
+""" sol = SolutionCoinChange()
 print(sol.coinChangeDP([1,3,4,5], 7))
 
-
+ """
 """ sol = SolutionLIS()
 
 print(sol.longestIncreasingSubarrayStrict([0,1,0,3,7,5]))

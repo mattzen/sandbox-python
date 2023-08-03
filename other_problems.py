@@ -149,3 +149,27 @@ print(dailyTemperaturesStack3( [73,74,75,71,69,72,76,73]))
 
 sol = SolutionRotateArray()
 print(sol.rotate2([1,2,3,4,5,6,7], 10))
+
+
+def max_subarray(numbers):
+    """Find the largest sum of any contiguous subarray."""
+    best_sum = 0
+    current_sum = 0
+    for x in numbers:
+        current_sum = max(0, current_sum + x)
+        best_sum = max(best_sum, current_sum)
+    return best_sum
+
+def max_subarray_kadane(nums):
+    """Find the largest sum of any contiguous subarray."""
+    best_sum = nums[0]
+    current_sum = 0
+    for x in nums:
+        if(current_sum < 0):
+            current_sum = 0
+        current_sum += x
+        best_sum = max(best_sum, current_sum)
+    return best_sum
+
+print(max_subarray_kadane([-2,1,-3,4,-1,2,1,-5,4]))
+print(max_subarray_kadane([-2,-1,-2,-4]))

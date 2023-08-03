@@ -143,6 +143,23 @@ def dailyTemperaturesStack3(temperatures: List[int]) -> List[int]:
     return result
 
 
+def isAnagram(s: str, t: str) -> bool:
+    hashs = {}
+    hasht = {}
+    if len(t) != len(s):
+        return False
+    for i in range(len(s)):
+        if s[i] not in hashs:
+            hashs[s[i]] = 1
+        else:
+            hashs[s[i]] += 1
+        if t[i] not in hasht:
+            hasht[t[i]] = 1
+        else:
+            hasht[t[i]] += 1
+    return hashs == hasht
+
+print(isAnagram("anagram", "nagaram"))
 
 """ print(dailyTemperaturesStack3( [73,74,75,71,69,72,76,73]))
 

@@ -144,13 +144,13 @@ def dailyTemperaturesStack3(temperatures: List[int]) -> List[int]:
 
 
 
-print(dailyTemperaturesStack3( [73,74,75,71,69,72,76,73]))
+""" print(dailyTemperaturesStack3( [73,74,75,71,69,72,76,73]))
 
 
 sol = SolutionRotateArray()
 print(sol.rotate2([1,2,3,4,5,6,7], 10))
 
-
+ """
 def max_subarray(numbers):
     """Find the largest sum of any contiguous subarray."""
     best_sum = 0
@@ -171,5 +171,37 @@ def max_subarray_kadane(nums):
         best_sum = max(best_sum, current_sum)
     return best_sum
 
-print(max_subarray_kadane([-2,1,-3,4,-1,2,1,-5,4]))
-print(max_subarray_kadane([-2,-1,-2,-4]))
+
+
+def longestConsecutiveSequence(nums):
+    hashset = {}
+    max_sequence = 0
+    for num in nums:
+        hashset[num] = 1
+        left_count = 0
+        right_count = 0
+        while(num - left_count - 1 in hashset):
+            left_count += 1
+        while(num + right_count + 1 in hashset):
+            right_count += 1
+        max_sequence = max(max_sequence, left_count + right_count + 1)
+    return max_sequence
+
+def longestConsecutiveSequence2(nums):
+    hashset = set(nums)
+    max_sequence = 0
+    for num in nums:
+        if(num - 1 not in hashset):
+            longest = 0
+            while(num + longest in hashset):
+                longest +=1
+        max_sequence = max(max_sequence, longest)
+    return max_sequence
+
+
+
+print(longestConsecutiveSequence2([100,4,200,1,3,2]))
+""" print(max_subarray([-2,1,-3,4,-1,2,1,-5,4]))
+print(max_subarray([-2,-1,-2,-4])) """
+#print(max_subarray_kadane([-2,1,-3,4,-1,2,1,-5,4]))
+#print(max_subarray_kadane([-2,-1,-2,-4]))

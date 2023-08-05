@@ -385,6 +385,11 @@ class SolutionLIS:
     
         return maximum
 
+""" sol = SolutionLIS()
+
+print(sol.lisRecursive1([1,1,1,1])) """
+
+
 class SolutionCoinChange:
     def coinChangeRecursiveAllCombinations(self, coins: List[int], amount: int) -> int:
         all_combs = []
@@ -440,17 +445,12 @@ class SolutionCoinChange:
         back(len(coins)-1, 0)
         return min(dp)
 
-
-
-
 def iter(s, i):
     if(i < 10):
         return iter(s + 1, i + 1)
     return s
 
 #print(iter(0,0))
-
-
 
 def ParenthesisComb(n):
     result = []
@@ -470,18 +470,34 @@ def ParenthesisComb(n):
     back([])
     return result
 
+#print(ParenthesisComb(3))
+
+#longest inbcreasing strict subsequence(LIS)
+def myLIS(nums):
+    dp = [1] * len(nums)
+    for i in range(len(nums) - 1, -1, -1):
+        for j in range(i + 1 , len(nums)):
+            if(nums[i] < nums[j]):
+                dp[i] = max(dp[i], 1 + dp[j]) 
+    
+    return dp
+
+#print(myLIS([7,2,1,3,8,101,18]))
 
 
-
-
-
-print(ParenthesisComb(3))
-
-
-
-
-
-
+class SolutionHouseRobber:
+    def rob(self, nums: List[int]) -> int:
+        
+        def robRec(nums, i):
+            if(i < 0):
+                return 0
+            return max(robRec(nums, i - 2) + nums[i], robRec(nums, i - 1))
+        
+        return robRec(nums,len(nums)-1) 
+               
+        
+sol = SolutionHouseRobber()
+print(sol.rob([2,1,1,2]))
 
 """ sol = SolutionCoinChange()
 print(sol.coinChangeDP([1,3,4,5], 7))

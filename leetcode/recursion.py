@@ -454,20 +454,6 @@ def iter(s, i):
 
 def ParenthesisComb(n):
     result = []
-    
-    def back(current_comb):  
-        if(len(current_comb) == n*2):
-            result.append(current_comb.copy())
-            return
-        if(current_comb and current_comb[-1] == "("):
-            current_comb.append(")")
-            return
-        current_comb.append("(")
-        back(current_comb)
-
-        
-        
-    back([])
     return result
 
 #print(ParenthesisComb(3))

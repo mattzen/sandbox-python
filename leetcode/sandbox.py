@@ -35,7 +35,45 @@ def valueTypeVsReferenceType():
     print(a, b, arr2)
 
 
+def SumOfDigits(n):
+    if n == 0:
+        return 0
+    return n%10 + SumOfDigits(n//10)
 
+def SumofDigitsIterative(n):
+    sum = 0
+    while n > 0:
+        sum += n%10
+        n = n//10
+    return sum
+
+def is_palindrome(s):
+    s = re.sub('[^a-zA-Z0-9]', '', s)
+    s = s.lower()
+    return s == s[::-1]
+
+def lengthOfLastWord(s):
+    s = s.strip()
+    if len(s) == 0:
+        return 0
+    return len(s.split()[-1])
+
+def reverseWords(s):
+    s = s.strip()
+    if len(s) == 0:
+        return ""
+    return " ".join(s.split()[::-1])
+    
+def strStr(haystack, needle):
+    if len(needle) == 0:
+        return 0
+    if len(haystack) == 0:
+        return -1
+    for i in range(len(haystack)):
+        if haystack[i] == needle[0]:
+            if haystack[i:i+len(needle)] == needle:
+                return i
+    return -1 
         
 
 

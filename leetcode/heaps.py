@@ -2,8 +2,7 @@ from collections import deque
 import heapq
 from typing import *
 class SolutionHeaps:
-    
-    def findKthLargest2(self, nums: List[int], k: int) -> int:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
         minHeap = []
         for num in nums:
             heapq.heappush(minHeap, num)
@@ -23,7 +22,7 @@ class SolutionHeaps:
             self.heapify(nums, n, i)
                
     def heapify(self, arr, N, i):
-    
+        
         largest = i  # Initialize largest as root
         l = 2 * i + 1  # left = 2*i + 1
         r = 2 * i + 2  # right = 2*i + 2
